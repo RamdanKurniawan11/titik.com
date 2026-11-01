@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TITIK.COM — PT Titik Terang Hakiki. Satu Titik untuk Semua Solusi Digital. Layanan software development, mobile app, UI/UX design, dan IT consulting.">
+  <meta name="theme-color" content="#071b3a">
+  <title>TITIK.COM — Satu Titik untuk Semua Solusi Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #071b3a;
+      --navy-2: #0c2b57;
+      --blue: #1769e0;
+      --cyan: #54c7f3;
+      --ink: #10213b;
+      --muted: #66758c;
+      --line: #e6edf6;
+      --pale: #f4f8fd;
+      --white: #fff;
+      --radius: 22px;
+      --shadow: 0 22px 60px rgba(13, 42, 82, .10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: #fff; font-family: "DM Sans", sans-serif; line-height: 1.65; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .container { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--blue); font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 22px; height: 2px; background: var(--cyan); border-radius: 2px; }
+    h1,h2,h3,h4 { font-family: Manrope, sans-serif; line-height: 1.15; margin: 0; letter-spacing: -.035em; }
+    h2 { font-size: clamp(30px, 4vw, 44px); }
+    .section-intro { max-width: 640px; color: var(--muted); margin: 16px 0 0; }
+    .section-head { margin-bottom: 46px; }
+    .section-head.center { text-align: center; margin-left: auto; margin-right: auto; }
+    .section-head.center .eyebrow { justify-content: center; }
+    .section-head.center .section-intro { margin-left: auto; margin-right: auto; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 13px 21px; border-radius: 999px; font-weight: 700; font-size: 14px; transition: .25s ease; border: 1px solid transparent; cursor: pointer; }
+    .btn-primary { background: var(--blue); color: white; box-shadow: 0 10px 24px rgba(23,105,224,.24); }
+    .btn-primary:hover { background: #0c56c5; transform: translateY(-2px); }
+    .btn-outline { color: white; border-color: rgba(255,255,255,.28); }
+    .btn-outline:hover { background: rgba(255,255,255,.1); }
+    .btn-light { color: var(--navy); background: white; }
+    .dot-pattern { background-image: radial-gradient(rgba(84,199,243,.62) 1.25px, transparent 1.25px); background-size: 17px 17px; }
+    .site-header { position: absolute; z-index: 10; top: 0; left: 0; width: 100%; color: white; }
+    .nav-wrap { height: 88px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.12); }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-family: Manrope, sans-serif; font-weight: 800; font-size: 23px; letter-spacing: -.06em; }
+    .brand-mark { width: 35px; height: 35px; position: relative; display: inline-block; border: 2px solid var(--cyan); border-radius: 50%; }
+    .brand-mark::before,.brand-mark::after { content: ""; position: absolute; border-radius: 50%; background: var(--cyan); }
+    .brand-mark::before { width: 8px; height: 8px; top: 11px; left: 11px; }
+    .brand-mark::after { width: 4px; height: 4px; top: 3px; right: 2px; box-shadow: -25px 23px 0 rgba(84,199,243,.8); }
+    .brand small { display: block; font-family: "DM Sans",sans-serif; font-size: 8px; letter-spacing: .18em; font-weight: 600; opacity: .7; margin-top: -3px; }
+    .nav-links { display: flex; align-items: center; gap: 30px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,.82); }
+    .nav-links a:hover { color: white; }
+    .nav-cta { padding: 10px 17px; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; color: white; }
+    .menu-toggle { display: none; border: 0; color: white; background: transparent; font-size: 25px; cursor: pointer; }
+    .hero { min-height: 760px; display: flex; align-items: center; position: relative; overflow: hidden; color: white; background: radial-gradient(ellipse at 78% 35%, rgba(26,102,202,.36), transparent 37%), linear-gradient(115deg, #061630 0%, #09234a 55%, #0b3266 100%); }
+    .hero::before { z-index: 0; pointer-events: none; }
+    .hero::after { z-index: 0; pointer-events: none; }
+    .particle-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; opacity: .82; }
+    .hero-grid { z-index: 2; }
+    .hero::before { content: ""; position: absolute; width: 560px; height: 560px; border: 1px solid rgba(84,199,243,.14); border-radius: 50%; right: -90px; top: 95px; box-shadow: 0 0 0 55px rgba(84,199,243,.025), 0 0 0 110px rgba(84,199,243,.02); }
+    .hero::after { content: ""; position: absolute; width: 280px; height: 180px; right: 8%; bottom: 10%; opacity: .45; background-image: radial-gradient(rgba(84,199,243,.8) 1.5px, transparent 1.5px); background-size: 16px 16px; mask-image: linear-gradient(135deg, transparent, #000 35%, #000); }
+    .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 45px; padding-top: 100px; }
+    .hero-copy { max-width: 670px; }
+    .hero-kicker { color: #8bdcff; text-transform: uppercase; letter-spacing: .2em; font-size: 11px; font-weight: 800; margin-bottom: 22px; }
+    .hero h1 { font-size: clamp(48px, 6.5vw, 78px); max-width: 760px; }
+    .hero h1 span { color: #68d1fa; }
+    .hero-lead { color: rgba(255,255,255,.72); max-width: 570px; font-size: 17px; margin: 24px 0 31px; }
+    .hero-actions { display: flex; gap: 13px; flex-wrap: wrap; }
+    .hero-note { display: flex; align-items: center; gap: 13px; margin-top: 54px; color: rgba(255,255,255,.65); font-size: 12px; }
+    .hero-note strong { color: white; font-size: 13px; }
+    .hero-note .line { width: 38px; height: 1px; background: var(--cyan); }
+    .hero-art { position: relative; height: 430px; display: grid; place-items: center; }
+    .orbit { position: absolute; border: 1px solid rgba(111,205,255,.28); border-radius: 50%; transform-style: preserve-3d; pointer-events: none; }
+    .orbit.one { width: 370px; height: 250px; animation: orbitSpinA 13s linear infinite; }
+    .orbit.two { width: 460px; height: 315px; border-style: dashed; opacity: .6; animation: orbitSpinB 19s linear infinite; }
+    .orbit.three { width: 280px; height: 280px; border-color: rgba(111,205,255,.16); animation: orbitSpinC 24s linear infinite; }
+    .orbit.one::after, .orbit.two::after, .orbit.three::after {
+      content: ""; position: absolute; width: 9px; height: 9px; border-radius: 50%;
+      top: 50%; left: -4px; background: #72dcff; box-shadow: 0 0 16px #59caff, 0 0 30px rgba(89,202,255,.55);
+    }
+    .orbit.two::after { width: 7px; height: 7px; left: auto; right: 12%; top: 5%; }
+    .orbit.three::after { width: 6px; height: 6px; top: 10%; left: 78%; }
+    .infinite-point { position: relative; z-index: 2; width: 18px; height: 18px; display: grid; place-items: center; }
+    .infinite-point span { width: 9px; height: 9px; display: block; border-radius: 50%; background: #f4fcff;
+      box-shadow: 0 0 8px 3px rgba(220,248,255,.95), 0 0 22px 8px rgba(82,203,255,.75), 0 0 52px 18px rgba(39,142,255,.38);
+      animation: pointPulse 3s ease-in-out infinite; }
+    .infinite-point i { position: absolute; width: 34px; height: 34px; border: 1px solid rgba(112,218,255,.7); border-radius: 50%;
+      animation: pointRipple 3.6s ease-out infinite; }
+    @keyframes orbitSpinA { from { transform: rotate(-24deg) rotate(0deg); } to { transform: rotate(-24deg) rotate(360deg); } }
+    @keyframes orbitSpinB { from { transform: rotate(36deg) rotate(0deg); } to { transform: rotate(36deg) rotate(-360deg); } }
+    @keyframes orbitSpinC { from { transform: rotateX(58deg) rotate(0deg); } to { transform: rotateX(58deg) rotate(360deg); } }
+    @keyframes pointPulse { 0%,100% { transform: scale(.88); opacity:.82; } 50% { transform:scale(1.15);opacity:1; } }
+    @keyframes pointRipple { 0% { transform:scale(.45);opacity:.8; } 85%,100% { transform:scale(2.2);opacity:0; } }
+    .float-dot { position: absolute; width: 13px; height: 13px; border-radius: 50%; background: #67d4fb; box-shadow: 0 0 20px #67d4fb; }
+    .d1 { top: 50px; left: 95px; }.d2 { top: 105px; right: 38px; width: 8px;height:8px; }.d3 { bottom: 65px; left: 45px; width: 9px;height:9px; }.d4 { bottom: 40px; right: 95px; width: 17px;height:17px; }
+    .hero-caption { position: absolute; right: -2px; bottom: 35px; padding: 13px 17px; border: 1px solid rgba(255,255,255,.17); background: rgba(7,27,58,.62); backdrop-filter: blur(12px); border-radius: 13px; font-size: 11px; color: rgba(255,255,255,.72); }
+    .hero-caption strong { display: block; color: white; font-size: 13px; }
+    .trust-strip { background: white; border-bottom: 1px solid var(--line); }
+    .trust-inner { display: flex; justify-content: space-between; align-items: center; gap: 25px; padding: 23px 0; }
+    .trust-label { color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .trust-phrase { color: var(--navy); font-family: Manrope,sans-serif; font-size: 15px; font-weight: 800; }
+    section { padding: 105px 0; }
+    .about-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 90px; align-items: center; }
+    .about-visual { min-height: 420px; position: relative; border-radius: 28px; overflow: hidden; background: linear-gradient(145deg,#eaf5ff,#f6f9ff); display: grid; place-items: center; }
+    .about-visual::before { content: ""; position: absolute; width: 310px; height: 310px; border: 1px solid #b7d9f5; border-radius: 50%; box-shadow: 0 0 0 35px rgba(23,105,224,.035), 0 0 0 75px rgba(23,105,224,.025); }
+    .about-visual .dot-pattern { position: absolute; width: 150px; height: 130px; right: 0; top: 0; opacity: .6; }
+    .about-symbol { z-index: 1; width: 170px; height: 170px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(145deg,#1d83ed,#0b2f62); color: white; font: 800 86px Manrope,sans-serif; box-shadow: 0 25px 60px rgba(17,91,175,.25); }
+    .about-tag { position: absolute; z-index: 2; left: 24px; bottom: 24px; background: white; border: 1px solid var(--line); border-radius: 14px; padding: 13px 17px; box-shadow: var(--shadow); font-size: 11px; color: var(--muted); }
+    .about-tag strong { display: block; color: var(--navy); font-size: 13px; }
+    .about-copy p { color: var(--muted); margin: 19px 0 0; }
+    .about-highlight { border-left: 3px solid var(--cyan); padding: 2px 0 2px 19px; margin-top: 27px; color: var(--navy); font-weight: 700; }
+    .philosophy { background: var(--pale); position: relative; overflow: hidden; }
+    .philosophy::after { content:""; position:absolute; right:-80px; top:35px; width:250px;height:250px; border-radius:50%; border:1px solid #dceaf8; box-shadow:0 0 0 35px rgba(23,105,224,.025),0 0 0 70px rgba(23,105,224,.02); }
+    .philosophy-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; position: relative; z-index:1; }
+    .philosophy-card { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 29px; min-height: 245px; transition: .25s; }
+    .philosophy-card:hover,.service-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+    .number-dot { width: 43px; height: 43px; border-radius: 50%; display: grid; place-items: center; color: var(--blue); background: #eaf4ff; font-family: Manrope,sans-serif; font-weight: 800; margin-bottom: 23px; position: relative; }
+    .number-dot::after { content:""; position:absolute; width:6px;height:6px;right:-2px;top:0;border-radius:50%;background:var(--cyan); }
+    .philosophy-card h3 { font-size: 19px; margin-bottom: 10px; }
+    .philosophy-card p { color: var(--muted); font-size: 14px; margin: 0; }
+    .vision { background: linear-gradient(120deg,#081b38,#0c3970); color: white; position: relative; overflow: hidden; }
+    .vision::before { content:""; position:absolute; inset:0; opacity:.22; background-image:radial-gradient(#6acff8 1px,transparent 1px);background-size:22px 22px; mask-image:linear-gradient(90deg,transparent,#000 70%); }
+    .vision-grid { display:grid; grid-template-columns: .8fr 1.2fr; gap:80px; position:relative; z-index:1; }
+    .vision .eyebrow { color:#79d5fb; }
+    .vision h2 { margin-top:17px; }
+    .vision-statement { font: 700 clamp(22px,3vw,31px)/1.45 Manrope,sans-serif; color:#dceeff; max-width:720px; }
+    .mission-list { display:grid; gap:17px; margin-top:28px; }
+    .mission-item { display:flex; gap:15px; align-items:flex-start; color:rgba(255,255,255,.76); font-size:14px; }
+    .mission-item .check { flex:0 0 25px; width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:rgba(84,199,243,.15);color:#77d7ff;font-size:12px;font-weight:800; }
+    .services-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+    .service-card { border:1px solid var(--line); border-radius:var(--radius); padding:30px; transition:.25s; background:white; }
+    .service-icon { width:52px;height:52px;border-radius:16px;background:#edf6ff;color:var(--blue);display:grid;place-items:center;margin-bottom:25px; }
+    .service-icon svg { width:25px;height:25px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round; }
+    .service-card h3 { font-size:20px; margin-bottom:11px; }
+    .service-card p { color:var(--muted);font-size:14px;margin:0; }
+    .service-index { display:inline-block; margin-top:24px; color:#9aabc0; font-size:11px; font-weight:800; letter-spacing:.12em; }
+    .showcase { background:#f5f8fc; }
+    .showcase-panel { border-radius:28px; padding:45px; background:linear-gradient(120deg,#0a2043,#10447f); color:white; position:relative; overflow:hidden; }
+    .showcase-panel::after { content:"";position:absolute;right:-30px;top:-90px;width:350px;height:350px;border:1px solid rgba(112,207,255,.25);border-radius:50%;box-shadow:0 0 0 45px rgba(112,207,255,.04),0 0 0 90px rgba(112,207,255,.025); }
+    .showcase-content { position:relative;z-index:1;max-width:690px; }
+    .showcase-content .eyebrow { color:#8bdcff; }
+    .showcase-content h2 { margin:15px 0; }
+    .showcase-content p { color:rgba(255,255,255,.7);max-width:570px;margin:0; }
+    .showcase-note { display:inline-flex;align-items:center;gap:9px;margin-top:27px;padding:9px 13px;border:1px solid rgba(255,255,255,.2);border-radius:999px;color:#d6eaff;font-size:11px; }
+    .why-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:16px; }
+    .why-card { padding:24px 19px;border-top:2px solid #d7e8fa;background:#fff; }
+    .why-card h3 { font-size:17px;margin-bottom:10px; }
+    .why-card p { color:var(--muted);font-size:13px;margin:0; }
+    .workflow { background:var(--pale); }
+    .steps { display:grid;grid-template-columns:repeat(5,1fr);gap:12px;position:relative; }
+    .steps::before { content:"";position:absolute;top:25px;left:7%;right:7%;height:1px;background:#c9dced; }
+    .step { position:relative;z-index:1; }
+    .step-num { width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:#fff;border:1px solid #cfe2f5;color:var(--blue);font:800 14px Manrope,sans-serif;margin-bottom:22px;box-shadow:0 0 0 7px var(--pale); }
+    .step-code { color:var(--blue);font:800 11px Manrope,sans-serif;letter-spacing:.08em; }
+    .step h3 { font-size:16px;margin:7px 0 9px; }
+    .step p { color:var(--muted);font-size:12px;margin:0; }
+    .contact { background:linear-gradient(115deg,#071a37,#0d3970);color:white;position:relative;overflow:hidden; }
+    .contact::before { content:"";position:absolute;right:-80px;bottom:-190px;width:500px;height:500px;border-radius:50%;border:1px solid rgba(112,207,255,.2);box-shadow:0 0 0 50px rgba(112,207,255,.03),0 0 0 100px rgba(112,207,255,.02); }
+    .contact-grid { display:grid;grid-template-columns:1.1fr .9fr;gap:65px;align-items:center;position:relative;z-index:1; }
+    .contact .eyebrow { color:#82d8fb; }
+    .contact h2 { margin:17px 0;max-width:600px; }
+    .contact-copy { color:rgba(255,255,255,.7);max-width:550px; }
+    .contact-details { display:grid;gap:13px;margin-top:30px; }
+    .contact-link { display:flex;align-items:center;gap:12px;color:#e4f3ff;font-size:14px; }
+    .contact-link span:first-child { width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.1);color:#7bd8ff; }
+    .contact-card { padding:30px;border:1px solid rgba(255,255,255,.18);border-radius:22px;background:rgba(255,255,255,.07);backdrop-filter:blur(10px); }
+    .contact-card h3 { font-size:20px;margin-bottom:10px; }
+    .contact-card p { color:rgba(255,255,255,.67);font-size:13px;margin:0 0 23px; }
+    footer { background:#041329;color:rgba(255,255,255,.55);padding:25px 0;font-size:11px; }
+    .footer-inner { display:flex;justify-content:space-between;align-items:center;gap:20px; }
+    .footer-brand { color:white;font:800 15px Manrope,sans-serif;letter-spacing:-.04em; }
+    .footer-dots { display:inline-flex;gap:4px;margin-left:8px;vertical-align:middle; }
+    .footer-dots i { width:4px;height:4px;border-radius:50%;background:#61cffa;display:block; }
+
+    /* Section transitions and interactive ornamental language */
+    .reveal { opacity: 1; transform: none; transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+    html.js-motion .reveal { opacity: 0; transform: translateY(28px); }\n    html.js-motion .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    html.js-motion .reveal-left { transform: translateX(-30px); }
+    html.js-motion .reveal-right { transform: translateX(30px); }
+    html.js-motion .reveal-left.is-visible, html.js-motion .reveal-right.is-visible { transform: translateX(0); }
+    html.js-motion .reveal-scale { transform: translateY(18px) scale(.96); }
+    html.js-motion .reveal-scale.is-visible { transform: translateY(0) scale(1); }
+    .stagger > * { transition-delay: var(--reveal-delay, 0ms); }
+
+    /* Floating decorative dots, kept behind content and out of the interaction layer */
+    .section-orb { position:absolute; width:190px; height:190px; border:1px solid rgba(36,126,213,.12); border-radius:50%; pointer-events:none; }
+    .section-orb::before, .section-orb::after { content:""; position:absolute; border-radius:50%; }
+    .section-orb::before { inset:22px; border:1px dashed rgba(84,174,235,.22); animation: sectionOrbit 28s linear infinite; }
+    .section-orb::after { width:7px;height:7px;top:16px;left:50%;background:#67cffa;box-shadow:0 0 15px rgba(74,190,245,.8); animation: sectionOrbit 12s linear infinite; transform-origin: 0 78px; }
+    @keyframes sectionOrbit { to { transform:rotate(360deg); } }
+    
+    @keyframes floatPoint { 0%,100% { transform:translate(0,0); } 50% { transform:translate(28px,18px); } }
+    .philosophy { isolation:isolate; }
+    .philosophy .section-orb { right:7%;top:12%;z-index:-1; }
+    .vision { isolation:isolate; }
+    .vision .section-orb { right:8%;bottom:-45px;z-index:-1;border-color:rgba(119,213,255,.18); }
+    .showcase-panel { isolation:isolate; }
+    .showcase-panel::before { content:""; position:absolute; z-index:0; width:220px;height:220px;right:15%;bottom:-145px;border:1px dashed rgba(111,211,255,.28);border-radius:50%;animation: sectionOrbit 32s linear infinite; }
+    .showcase-panel::after { animation: sectionOrbit 42s linear infinite; }
+    .contact { isolation:isolate; }
+    .contact .section-orb { left:-70px;top:12%;z-index:-1;border-color:rgba(119,213,255,.16); }
+
+    /* Tactile hover states */
+    .philosophy-card, .service-card, .why-card, .contact-card { position:relative; overflow:hidden; }
+    .philosophy-card::after, .service-card::after, .why-card::after {
+      content:""; position:absolute; left:0;top:0;width:100%;height:2px;
+      background:linear-gradient(90deg,transparent,#54c7f3,#1769e0,transparent);
+      transform:scaleX(0); transform-origin:left; transition:transform .45s ease;
+    }
+    .philosophy-card:hover::after, .service-card:hover::after, .why-card:hover::after { transform:scaleX(1); }
+    .philosophy-card, .service-card { will-change:transform; }
+    .service-card:hover .service-icon { transform:translateY(-3px) rotate(-5deg); background:#e0f1ff; }
+    .service-icon { transition:transform .35s ease,background .35s ease; }
+    .number-dot { transition:transform .35s ease, box-shadow .35s ease; }
+    .philosophy-card:hover .number-dot, .why-card:hover .number-dot { transform:scale(1.08);box-shadow:0 0 0 7px rgba(23,105,224,.06); }
+    .step-num { transition:background .35s ease,color .35s ease,transform .35s ease,box-shadow .35s ease; }
+    .step:hover .step-num { background:var(--blue);color:white;transform:translateY(-4px);box-shadow:0 0 0 7px rgba(23,105,224,.1),0 8px 22px rgba(23,105,224,.2); }
+    .contact-card { transition:transform .35s ease,border-color .35s ease,background .35s ease; }
+    .contact-card:hover { transform:translateY(-5px);border-color:rgba(112,207,255,.48);background:rgba(255,255,255,.1); }
+    .btn { position:relative; overflow:hidden; }
+    .btn::after { content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.22) 50%,transparent 75%);transform:translateX(-120%);transition:transform .65s ease; }
+    .btn:hover::after { transform:translateX(120%); }
+    .contact-link span:first-child { transition:transform .3s ease,background .3s ease; }
+    .contact-link:hover span:first-child { transform:translateX(3px);background:rgba(84,199,243,.2); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .reveal-left, .reveal-right, .reveal-scale { opacity:1!important;transform:none!important;transition:none!important; }
+      .section-orb, .section-orb::before, .section-orb::after, .about-visual::after, .showcase-panel::before { animation:none!important; }
+      .btn::after { display:none; }
+    }
+
+
+    /* Stronger scroll-driven reveal system */
+    html.js-motion .reveal { opacity:0; transform:translate3d(0,42px,0) scale(.97); filter:blur(3px); transition:opacity .85s ease, transform .9s cubic-bezier(.2,.75,.25,1), filter .85s ease; }
+    html.js-motion .reveal.is-visible { opacity:1; transform:translate3d(0,0,0) scale(1); filter:blur(0); }
+    html.js-motion .reveal[data-effect="left"] { transform:translate3d(-64px,0,0) scale(.98); }
+    html.js-motion .reveal[data-effect="right"] { transform:translate3d(64px,0,0) scale(.98); }
+    html.js-motion .reveal[data-effect="zoom"] { transform:scale(.78); }
+    html.js-motion .reveal[data-effect="flip"] { transform:perspective(900px) rotateY(-22deg) translateY(24px); transform-origin:left center; backface-visibility:hidden; }
+    html.js-motion .reveal[data-effect="flip-x"] { transform:perspective(900px) rotateX(18deg) translateY(30px); transform-origin:center bottom; backface-visibility:hidden; }
+    html.js-motion .reveal.is-visible[data-effect] { transform:translate3d(0,0,0) scale(1) rotate(0); }
+    html.js-motion .reveal.is-exiting { opacity:0; filter:blur(2px); }
+    html.js-motion .reveal.is-exiting[data-effect="left"] { transform:translate3d(-34px,0,0); }
+    html.js-motion .reveal.is-exiting[data-effect="right"] { transform:translate3d(34px,0,0); }
+    html.js-motion .reveal.is-exiting[data-effect="zoom"] { transform:scale(.94); }
+    html.js-motion .reveal.is-exiting[data-effect="flip"] { transform:perspective(900px) rotateY(12deg); }
+    .stagger > * { transition-delay:var(--reveal-delay,0ms); }
+
+    /* Scroll parallax layers */
+    [data-parallax] { --parallax-y:0px; }
+    [data-parallax] > * { will-change:transform; }
+    .hero-art { transform:translate3d(0,var(--hero-parallax,0px),0); }
+    .section-orb { transform:translate3d(0,var(--parallax-y,0px),0); }
+    .about-visual { transform:translate3d(0,var(--parallax-y,0px),0); }
+    .about-visual .about-orbit { will-change:transform; }
+
+    /* New branded visual: an illuminated point connected by precision orbits */
+    .about-visual { min-height:440px; isolation:isolate; background:radial-gradient(ellipse at 50% 48%,#e5f4ff 0%,#f1f7ff 48%,#eaf2fc 100%); }
+    .about-grid-lines { position:absolute;inset:0;opacity:.32;background-image:linear-gradient(rgba(44,120,190,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(44,120,190,.09) 1px,transparent 1px);background-size:34px 34px;mask-image:radial-gradient(ellipse at center,#000,transparent 75%); }
+    .about-dotfield { position:absolute;inset:0;opacity:.28;background-size:14px 14px;mask-image:linear-gradient(135deg,transparent,#000 40%,transparent 90%); }
+    .about-orbit { position:absolute;left:50%;top:45%;border:1px solid rgba(24,112,197,.28);border-radius:50%;pointer-events:none; }
+    .about-orbit i { position:absolute;display:block;width:9px;height:9px;border-radius:50%;background:#39aeea;box-shadow:0 0 14px rgba(43,165,230,.8);top:50%;left:-4px; }
+    .about-orbit.orbit-a { width:300px;height:178px;margin:-89px 0 0 -150px;animation:aboutOrbitA 13s linear infinite; }
+    .about-orbit.orbit-b { width:360px;height:230px;margin:-115px 0 0 -180px;transform:rotate(58deg);border-style:dashed;animation:aboutOrbitB 19s linear infinite; }
+    .about-orbit.orbit-c { width:230px;height:230px;margin:-115px 0 0 -115px;border-color:rgba(24,112,197,.16);animation:aboutOrbitC 24s linear infinite; }
+    .about-orbit.orbit-b i { left:auto;right:12%;top:7%;width:7px;height:7px; }
+    .about-orbit.orbit-c i { left:78%;top:10%;width:6px;height:6px; }
+    @keyframes aboutOrbitA { from{transform:rotate(-22deg) rotate(0)}to{transform:rotate(-22deg) rotate(360deg)} }
+    @keyframes aboutOrbitB { from{transform:rotate(58deg) rotate(0)}to{transform:rotate(58deg) rotate(-360deg)} }
+    @keyframes aboutOrbitC { from{transform:rotateX(58deg) rotate(0)}to{transform:rotateX(58deg) rotate(360deg)} }
+    .about-center { position:absolute;left:50%;top:45%;width:88px;height:88px;margin:-44px 0 0 -44px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#fff 0 5%,#bdeaff 14%,rgba(91,190,239,.22) 40%,rgba(91,190,239,.04) 70%);box-shadow:0 0 22px rgba(58,165,224,.2),0 0 65px rgba(58,165,224,.18); }
+    .about-center span { color:#1473bb;font:800 66px/1 Manrope,sans-serif;text-shadow:0 0 18px rgba(61,172,229,.35);margin-top:-8px; }
+    .about-center i { position:absolute;inset:-15px;border:1px solid rgba(54,164,222,.28);border-radius:50%;animation:centerPulse 3.4s ease-out infinite; }
+    @keyframes centerPulse { 0%{transform:scale(.7);opacity:.8}100%{transform:scale(1.7);opacity:0} }
+    .about-node { position:absolute;width:7px;height:7px;border-radius:50%;background:#197bc1;box-shadow:0 0 12px rgba(25,123,193,.65);animation:nodeFloat 5s ease-in-out infinite; }
+    .node-a{top:20%;left:24%}.node-b{right:18%;top:28%;animation-delay:-1.7s}.node-c{left:27%;bottom:24%;animation-delay:-3s}
+    @keyframes nodeFloat { 0%,100%{transform:translateY(0);opacity:.65}50%{transform:translateY(-12px);opacity:1} }
+    .about-floating-card { position:absolute;z-index:3;display:flex;align-items:center;gap:10px;padding:11px 14px;border:1px solid rgba(255,255,255,.9);border-radius:13px;background:rgba(255,255,255,.82);box-shadow:0 12px 32px rgba(22,70,116,.11);backdrop-filter:blur(9px);animation:cardDrift 6s ease-in-out infinite; }
+    .about-floating-card strong { display:block;color:#12365b;font:700 11px Manrope,sans-serif;white-space:nowrap; }
+    .about-floating-card small { display:block;color:#71849b;font-size:9px;white-space:nowrap;margin-top:2px; }
+    .card-top{top:48px;right:24px}.card-bottom{bottom:82px;left:20px;animation-delay:-2.5s}
+    .mini-pulse{width:8px;height:8px;border-radius:50%;background:#2da9e5;box-shadow:0 0 0 5px rgba(45,169,229,.12),0 0 15px #2da9e5}
+    .mini-icon{width:27px;height:27px;border-radius:9px;display:grid;place-items:center;background:#e5f5ff;color:#1681c7;font-size:15px}
+    @keyframes cardDrift { 0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)} }
+    .about-tag { z-index:4; }
+    @media (max-width:700px) {
+      .about-visual { min-height:340px; }
+      .about-orbit.orbit-a {width:240px;height:145px;margin:-72px 0 0 -120px}
+      .about-orbit.orbit-b {width:290px;height:190px;margin:-95px 0 0 -145px}
+      .about-orbit.orbit-c {width:190px;height:190px;margin:-95px 0 0 -95px}
+      .card-top{top:25px;right:12px}.card-bottom{bottom:72px;left:10px}
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html.js-motion .reveal, html.js-motion .reveal.is-visible, html.js-motion .reveal.is-exiting { opacity:1!important;transform:none!important;filter:none!important;transition:none!important; }
+      .about-orbit,.about-orbit i,.about-center i,.about-node,.about-floating-card { animation:none!important; }
+    }
+
+    @media (max-width: 900px) {
+      .nav-links { gap:17px; }.hero-grid { grid-template-columns:1fr .7fr;gap:15px; }.hero-art { transform:scale(.82); }.about-grid { gap:45px; }.vision-grid,.contact-grid { gap:35px; }.why-grid { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width: 700px) {
+      .container { width:min(100% - 36px, 560px); }
+      .nav-wrap { height:74px; }.menu-toggle { display:block; }.nav-links { display:none;position:absolute;top:74px;left:18px;right:18px;padding:18px;background:#09244a;border:1px solid rgba(255,255,255,.15);border-radius:16px;align-items:stretch;flex-direction:column;gap:16px;box-shadow:var(--shadow); }.nav-links.open { display:flex; }.nav-cta { text-align:center; }
+      .hero { min-height:auto;padding:135px 0 75px; }.hero-grid { display:block;padding:0; }.hero h1 { font-size:clamp(43px,12vw,62px); }.hero-lead { font-size:15px; }.hero-art { height:280px;transform:scale(.72);margin:-5px -45px -25px; }.hero-caption { right:0;bottom:0; }.hero-note { margin-top:35px; }
+      .trust-inner { align-items:flex-start;flex-direction:column;gap:5px;padding:18px 0; }
+      section { padding:75px 0; }.section-head { margin-bottom:32px; }
+      .about-grid,.vision-grid,.contact-grid { grid-template-columns:1fr;gap:35px; }.about-visual { min-height:320px; }.about-visual::before { width:240px;height:240px; }.about-symbol { width:135px;height:135px;font-size:70px; }
+      .philosophy-grid,.services-grid { grid-template-columns:1fr; }.philosophy-card { min-height:0; }.showcase-panel { padding:30px 24px; }.why-grid { grid-template-columns:1fr 1fr;gap:10px; }.why-card { padding:18px 13px; }
+      .steps { grid-template-columns:1fr;gap:22px; }.steps::before { top:15px;bottom:20px;left:24px;right:auto;width:1px;height:auto; }.step { display:grid;grid-template-columns:50px 1fr;column-gap:16px; }.step-num { grid-row:span 3;margin:0; }.step-code { align-self:end; }.step h3 { margin:4px 0 5px; }.step p { padding-bottom:3px; }
+      .footer-inner { align-items:flex-start;flex-direction:column;gap:7px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior:auto; }
+      *,*::before,*::after { transition:none!important; }
+      .particle-canvas { display:none; } .orbit, .orbit::after, .infinite-point span, .infinite-point i { animation:none!important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home" aria-label="TITIK.COM beranda">
+        <span class="brand-mark"></span><span>TITIK.COM<small>PT TITIK TERANG HAKIKI</small></span>
+      </a>
+      <button class="menu-toggle" aria-label="Buka navigasi" aria-expanded="false">☰</button>
+      <nav class="nav-links" aria-label="Navigasi utama">
+        <a href="#tentang">Tentang</a><a href="#layanan">Layanan</a><a href="#keunggulan">Keunggulan</a><a href="#workflow">Alur Kerja</a><a class="nav-cta" href="#kontak">Hubungi Kami ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <canvas class="particle-canvas" id="particleCanvas" aria-hidden="true"></canvas>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="hero-kicker">PT Titik Terang Hakiki · Digital Technology Partner</div>
+          <h1>Satu Titik untuk Semua <span>Solusi Digital.</span></h1>
+          <p class="hero-lead">Kami membantu bisnis mengubah ide dan tantangan menjadi solusi digital yang fungsional, skalabel, dan berdampak nyata.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#kontak">Mulai Diskusi <span>↗</span></a>
+            <a class="btn btn-outline" href="#layanan">Jelajahi Layanan <span>↓</span></a>
+          </div>
+          <div class="hero-note"><span class="line"></span><span><strong>Presisi. Inovasi. Kepercayaan.</strong><br>Partner teknologi untuk langkah bisnis berikutnya.</span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit one"></div><div class="orbit two"></div><div class="orbit three"></div>
+          <div class="infinite-point" aria-hidden="true"><span></span><i></i></div>
+          <i class="float-dot d1"></i><i class="float-dot d2"></i><i class="float-dot d3"></i><i class="float-dot d4"></i>
+          <div class="hero-caption"><strong>One point. Endless possibilities.</strong>Solusi digital yang terhubung.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust-strip">
+      <div class="container trust-inner"><span class="trust-label">Our commitment</span><span class="trust-phrase">Ide yang terhubung. Teknologi yang tepat. Dampak yang nyata.</span></div>
+    </div>
+
+    <section id="tentang">
+      <div class="container about-grid">
+        <div class="about-visual reveal reveal-left" data-parallax="0.16">
+          <div class="about-grid-lines" aria-hidden="true"></div>
+          <div class="about-dotfield dot-pattern" aria-hidden="true"></div>
+          <div class="about-orbit orbit-a" aria-hidden="true"><i></i></div>
+          <div class="about-orbit orbit-b" aria-hidden="true"><i></i></div>
+          <div class="about-orbit orbit-c" aria-hidden="true"><i></i></div>
+          <div class="about-center" aria-label="Titik sebagai pusat solusi"><span>.</span><i></i></div>
+          <div class="about-node node-a" aria-hidden="true"></div>
+          <div class="about-node node-b" aria-hidden="true"></div>
+          <div class="about-node node-c" aria-hidden="true"></div>
+          <div class="about-floating-card card-top"><span class="mini-pulse"></span><span><strong>Connected Ideas</strong><small>Ideas become solutions</small></span></div>
+          <div class="about-floating-card card-bottom"><span class="mini-icon">✳</span><span><strong>Precision in Every Point</strong><small>Technology with purpose</small></span></div>
+          <div class="about-tag"><strong>PT TITIK TERANG HAKIKI</strong>Technology & Digital Solutions</div>
+        </div>
+        <div class="about-copy reveal reveal-right">
+          <span class="eyebrow">Tentang Kami</span>
+          <h2 style="margin-top:17px">Setiap tantangan punya titik temu.</h2>
+          <p>PT Titik Terang Hakiki, dikenal melalui brand <strong>TITIK.COM</strong>, adalah perusahaan penyedia jasa IT Development dan solusi transformasi digital yang berdedikasi membantu bisnis dari berbagai skala menghadapi tantangan era modern.</p>
+          <p>Berangkat dari keyakinan bahwa setiap kompleksitas teknologi selalu memiliki titik temu dan solusi yang jelas, kami menjembatani ide kreatif klien menjadi produk digital yang fungsional, skalabel, dan berdampak nyata.</p>
+          <div class="about-highlight">Didukung tim pengembang, desainer, dan konsultan IT berpengalaman, kami berkomitmen menghadirkan kualitas terbaik dalam setiap solusi yang dibangun.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="philosophy"><div class="section-orb" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section-head center reveal"><span class="eyebrow">Filosofi TITIK</span><h2 style="margin-top:16px">Lebih dari sekadar tanda baca.</h2><p class="section-intro">Dalam dunia pemrograman, titik adalah elemen kecil yang memiliki peran penting. Filosofi inilah yang menjadi dasar cara kami bekerja dan membangun solusi.</p></div>
+        <div class="philosophy-grid stagger">
+          <article class="philosophy-card"><div class="number-dot">01</div><h3>The Connector</h3><p><strong>TITIK sebagai Penghubung.</strong> Seperti dot operator yang menghubungkan object dengan method, kami menjembatani ide bisnis Anda dengan solusi teknologi yang tepat guna.</p></article>
+          <article class="philosophy-card"><div class="number-dot">02</div><h3>The Accuracy</h3><p><strong>TITIK sebagai Kepastian.</strong> Kami menjunjung presisi, ketelitian, dan kualitas di setiap baris kode demi sistem yang andal dan berjalan tanpa galat.</p></article>
+          <article class="philosophy-card"><div class="number-dot">03</div><h3>The Turning Point</h3><p><strong>TITIK sebagai Titik Terang.</strong> Kami percaya setiap masalah teknologi memiliki titik temu yang dapat mengarahkan bisnis menuju efisiensi dan pertumbuhan.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="vision"><div class="section-orb" aria-hidden="true"></div>
+      <div class="container vision-grid">
+        <div class="reveal reveal-left"><span class="eyebrow">Arah Strategis</span><h2>Visi & Misi</h2><p style="color:rgba(255,255,255,.62);max-width:330px">Arah strategis yang menjadi pedoman dalam setiap langkah perusahaan.</p></div>
+        <div>
+          <div class="reveal reveal-right"><div class="vision-statement">“Menjadi mitra teknologi terdepan dan terpercaya di Indonesia yang menghadirkan inovasi digital berkelanjutan untuk kemajuan bisnis global.”</div>
+          <div class="mission-list">
+            <div class="mission-item"><span class="check">✓</span><span>Mengembangkan solusi perangkat lunak dan aplikasi yang andal, inovatif, serta berpusat pada kebutuhan pengguna.</span></div>
+            <div class="mission-item"><span class="check">✓</span><span>Membantu proses transformasi digital klien secara efektif dan efisien guna meningkatkan daya saing bisnis.</span></div>
+            <div class="mission-item"><span class="check">✓</span><span>Menjaga profesionalisme, integritas, dan kualitas pelayanan dalam setiap kemitraan jangka panjang.</span></div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="layanan">
+      <div class="container">
+        <div class="section-head reveal"><span class="eyebrow">Layanan Utama</span><h2 style="margin-top:16px">Solusi yang dirancang sesuai kebutuhan Anda.</h2><p class="section-intro">Kami menyediakan layanan teknologi yang dapat disesuaikan dengan kebutuhan, proses, dan tujuan bisnis Anda.</p></div>
+        <div class="services-grid stagger">
+          <article class="service-card">
+            <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="15" rx="2"/><path d="M3 9h18M8 19v2m8-2v2M8 6.5h.01M11 6.5h.01"/></svg></div>
+            <h3>Custom Software & Web Development</h3><p>Membangun aplikasi berbasis web yang responsif, cepat, dan aman sesuai kebutuhan operasional bisnis — mulai dari company profile, sistem informasi manajemen, hingga Enterprise Resource Planning (ERP).</p><span class="service-index">01 / SOFTWARE DEVELOPMENT</span>
+          </article>
+          <article class="service-card">
+            <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 18h4"/></svg></div>
+            <h3>Mobile App Development</h3><p>Mengembangkan aplikasi Android dan iOS yang interaktif, user-friendly, dan berperforma tinggi menggunakan teknologi modern untuk mendekatkan bisnis dengan pelanggan.</p><span class="service-index">02 / MOBILE APPLICATION</span>
+          </article>
+          <article class="service-card">
+            <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8m-4-4v4M7 8h4m-4 4h8"/></svg></div>
+            <h3>UI/UX Design & Prototyping</h3><p>Merancang antarmuka yang estetik dan pengalaman pengguna yang intuitif. Setiap aplikasi dirancang agar tidak hanya berfungsi dengan baik, tetapi juga nyaman dan mudah digunakan.</p><span class="service-index">03 / PRODUCT DESIGN</span>
+          </article>
+          <article class="service-card">
+            <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/><circle cx="12" cy="12" r="4"/></svg></div>
+            <h3>IT Consulting & Maintenance Support</h3><p>Menyediakan konsultasi arsitektur teknologi, code review, dan pemeliharaan berkala agar sistem digital tetap aman, stabil, dan andal dalam jangka panjang.</p><span class="service-index">04 / IT SUPPORT</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="showcase">
+      <div class="container">
+        <div class="showcase-panel reveal reveal-scale"><div class="showcase-content"><span class="eyebrow">Portofolio / Proyek Unggulan</span><h2>Setiap solusi dimulai dari sebuah titik.</h2><p>Ruang untuk menampilkan proyek, produk digital, dan studi kasus TITIK.COM. Konten portofolio dapat dilengkapi dengan nama proyek, ringkasan tantangan, solusi, serta hasil yang dicapai.</p><span class="showcase-note"><span>●</span> Project showcase · Content-ready section</span></div></div>
+      </div>
+    </section>
+
+    <section id="keunggulan">
+      <div class="container">
+        <div class="section-head center reveal"><span class="eyebrow">Why Choose Us</span><h2 style="margin-top:16px">Mengapa TITIK.COM?</h2><p class="section-intro">Mitra IT Development yang mengutamakan kualitas, kesesuaian solusi, dan keberlanjutan hubungan kerja.</p></div>
+        <div class="why-grid stagger">
+          <article class="why-card"><div class="number-dot">01</div><h3>Precision Code</h3><p>Standar pengujian yang ketat untuk menjaga stabilitas, kecepatan, dan keamanan sistem.</p></article>
+          <article class="why-card"><div class="number-dot">02</div><h3>Tailor-Made Solutions</h3><p>Setiap sistem dikembangkan sesuai skala, alur kerja, dan tujuan bisnis Anda.</p></article>
+          <article class="why-card"><div class="number-dot">03</div><h3>User-Centric Design</h3><p>Antarmuka intuitif yang mudah dipahami dan memberikan pengalaman pengguna yang baik.</p></article>
+          <article class="why-card"><div class="number-dot">04</div><h3>End-to-End Support</h3><p>Pemeliharaan, pengawasan performa, dan konsultasi berkelanjutan setelah peluncuran.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="workflow" id="workflow">
+      <div class="container">
+        <div class="section-head center reveal"><span class="eyebrow">Our Workflow</span><h2 style="margin-top:16px">Alur kerja yang terstruktur.</h2><p class="section-intro">Lima langkah kerja untuk memastikan setiap proyek berjalan terarah, tepat waktu, dan transparan.</p></div>
+        <div class="steps stagger">
+          <article class="step"><div class="step-num">01</div><div class="step-code">.start</div><h3>Discovery & Discussion</h3><p>Menganalisis kebutuhan, ruang lingkup, dan strategi teknologi.</p></article>
+          <article class="step"><div class="step-num">02</div><div class="step-code">.plan</div><h3>Design & Architecture</h3><p>Merancang arsitektur sistem, database, wireframe, dan UI/UX.</p></article>
+          <article class="step"><div class="step-num">03</div><div class="step-code">.build</div><h3>Development & Coding</h3><p>Pengembangan oleh tim profesional dengan teknologi modern.</p></article>
+          <article class="step"><div class="step-num">04</div><div class="step-code">.test</div><h3>Testing & QA</h3><p>Pengujian performa, keamanan, dan responsivitas sebelum rilis.</p></article>
+          <article class="step"><div class="step-num">05</div><div class="step-code">.launch</div><h3>Deployment & Maintenance</h3><p>Peluncuran, pendampingan pengguna, dan pemeliharaan berkala.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="kontak"><div class="section-orb" aria-hidden="true"></div>
+      <div class="container contact-grid">
+        <div>
+          <span class="eyebrow">Mari Bekerja Sama</span><h2>Siap Memulai Langkah Pertama Transformasi Digital Anda?</h2>
+          <p class="contact-copy">Mari diskusikan ide dan kebutuhan IT bisnis Anda bersama tim kami. Kami siap menjadi titik terang bagi kemajuan bisnis Anda.</p>
+          <div class="contact-details">
+            <a class="contact-link" href="tel:+6281320616165"><span>↗</span>+62 813-2061-6165</a>
+            <a class="contact-link" href="mailto:info@titik.com"><span>✉</span>info@titik.com</a>
+            <a class="contact-link" href="https://www.titik.com" target="_blank" rel="noopener"><span>◎</span>www.titik.com</a>
+          </div>
+        </div>
+        <div class="contact-card reveal reveal-right"><h3>Satu titik untuk memulai.</h3><p>Ceritakan kebutuhan dan tantangan digital bisnis Anda. Tim TITIK.COM siap berdiskusi untuk menemukan solusi yang tepat.</p><a class="btn btn-light" href="https://wa.me/6281320616165?text=Halo%20TITIK.COM%2C%20saya%20ingin%20berdiskusi%20mengenai%20kebutuhan%20solusi%20digital." target="_blank" rel="noopener">Hubungi via WhatsApp ↗</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container footer-inner"><div><span class="footer-brand">TITIK.COM</span><span class="footer-dots"><i></i><i></i><i></i></span> <span>— PT Titik Terang Hakiki</span></div><div>© <span id="year"></span> TITIK.COM. All rights reserved.</div></div></footer>
+
+  <script>
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav-links');
+    toggle.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.textContent = isOpen ? '×' : '☰';
+    });
+    nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.textContent = '☰';
+    }));
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+
+    // Scroll reveal: each content block animates in and softly out as it enters/leaves view.
+    document.documentElement.classList.add('js-motion');
+    (() => {
+      const revealItems = document.querySelectorAll(
+        '.reveal, .philosophy-card, .service-card, .why-card, .step, .mission-item'
+      );
+      const effects = ['fade', 'left', 'right', 'zoom', 'flip', 'flip-x'];
+      revealItems.forEach((item, index) => {
+        if (item.matches('.philosophy-card, .service-card, .why-card, .step, .mission-item')) {
+          item.classList.add('reveal');
+        }
+        if (!item.dataset.effect) item.dataset.effect = effects[index % effects.length];
+        if (item.parentElement?.classList.contains('stagger')) {
+          const siblings = Array.from(item.parentElement.children);
+          item.style.setProperty('--reveal-delay', `${siblings.indexOf(item) * 95}ms`);
+        }
+      });
+
+      if (!('IntersectionObserver' in window)) {
+        revealItems.forEach(item => item.classList.add('is-visible'));
+      } else {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            const el = entry.target;
+            if (entry.isIntersecting) {
+              el.classList.remove('is-exiting');
+              el.classList.add('is-visible');
+            } else if (el.classList.contains('is-visible')) {
+              el.classList.remove('is-visible');
+              el.classList.add('is-exiting');
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '-8% 0px -8% 0px' });
+        revealItems.forEach(item => observer.observe(item));
+      }
+    })();
+
+    // Gentle scroll parallax at different depths; disabled for reduced-motion preferences.
+    (() => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (reduceMotion.matches) return;
+      const parallaxNodes = document.querySelectorAll('[data-parallax], .section-orb, .hero-art');
+      let ticking = false;
+      const updateParallax = () => {
+        const viewportH = window.innerHeight || 1;
+        parallaxNodes.forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          if (rect.bottom < -120 || rect.top > viewportH + 120) return;
+          const speed = Number(el.dataset.parallax || (el.classList.contains('hero-art') ? -0.10 : 0.075));
+          const centerOffset = (rect.top + rect.height / 2 - viewportH / 2);
+          const y = Math.max(-55, Math.min(55, centerOffset * speed * -1));
+          if (el.classList.contains('hero-art')) {
+            el.style.setProperty('--hero-parallax', `${y}px`);
+          } else {
+            el.style.setProperty('--parallax-y', `${y}px`);
+          }
+        });
+        ticking = false;
+      };
+      const requestUpdate = () => {
+        if (!ticking) {
+          ticking = true;
+          window.requestAnimationFrame(updateParallax);
+        }
+      };
+      window.addEventListener('scroll', requestUpdate, { passive: true });
+      window.addEventListener('resize', requestUpdate, { passive: true });
+      requestUpdate();
+    })();
+
+    // Animated particle network: lightweight canvas, responsive and motion-preference aware.
+    (() => {
+      const canvas = document.getElementById('particleCanvas');
+      const hero = document.querySelector('.hero');
+      if (!canvas || !hero) return;
+
+      const ctx = canvas.getContext('2d', { alpha: true });
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (!ctx || reduceMotion.matches) return;
+
+      let width = 0, height = 0, particles = [], rafId = 0;
+      let pointer = { x: -1000, y: -1000 };
+      const connectionDistance = 132;
+      const isMobile = window.matchMedia('(max-width: 700px)').matches;
+
+      const makeParticle = () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * (isMobile ? 0.22 : 0.34),
+        vy: (Math.random() - 0.5) * (isMobile ? 0.22 : 0.34),
+        radius: Math.random() * 1.6 + 0.65,
+        alpha: Math.random() * 0.45 + 0.25
+      });
+
+      function resize() {
+        const rect = hero.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.7);
+        width = rect.width;
+        height = rect.height;
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        const count = Math.min(95, Math.max(34, Math.round(width / (isMobile ? 13 : 15))));
+        particles = Array.from({ length: count }, makeParticle);
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Move particles and gently repel them from the pointer.
+        for (const p of particles) {
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < -8 || p.x > width + 8) p.vx *= -1;
+          if (p.y < -8 || p.y > height + 8) p.vy *= -1;
+
+          const dx = p.x - pointer.x;
+          const dy = p.y - pointer.y;
+          const distance = Math.hypot(dx, dy);
+          if (distance < 115 && distance > 0) {
+            const force = (115 - distance) / 115 * 0.012;
+            p.vx += (dx / distance) * force;
+            p.vy += (dy / distance) * force;
+          }
+
+          // Keep movement calm and smooth.
+          p.vx *= 0.999;
+          p.vy *= 0.999;
+          const speed = Math.hypot(p.vx, p.vy);
+          const maxSpeed = 0.48;
+          if (speed > maxSpeed) {
+            p.vx = p.vx / speed * maxSpeed;
+            p.vy = p.vy / speed * maxSpeed;
+          }
+        }
+
+        // Draw connecting lines between nearby points.
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const a = particles[i], b = particles[j];
+            const distance = Math.hypot(a.x - b.x, a.y - b.y);
+            if (distance < connectionDistance) {
+              const opacity = (1 - distance / connectionDistance) * 0.24;
+              ctx.strokeStyle = `rgba(92, 198, 245, ${opacity})`;
+              ctx.lineWidth = 0.7;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        // Draw softly glowing dots.
+        for (const p of particles) {
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(117, 218, 255, ${p.alpha})`;
+          ctx.shadowColor = 'rgba(72, 190, 255, 0.65)';
+          ctx.shadowBlur = 8;
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.shadowBlur = 0;
+
+        rafId = window.requestAnimationFrame(draw);
+      }
+
+      hero.addEventListener('pointermove', (event) => {
+        const rect = hero.getBoundingClientRect();
+        pointer.x = event.clientX - rect.left;
+        pointer.y = event.clientY - rect.top;
+      }, { passive: true });
+
+      hero.addEventListener('pointerleave', () => {
+        pointer.x = -1000;
+        pointer.y = -1000;
+      }, { passive: true });
+
+      resize();
+      draw();
+
+      window.addEventListener('resize', () => {
+        window.cancelAnimationFrame(rafId);
+        resize();
+        draw();
+      }, { passive: true });
+
+      reduceMotion.addEventListener?.('change', (event) => {
+        if (event.matches) {
+          window.cancelAnimationFrame(rafId);
+          ctx.clearRect(0, 0, width, height);
+        } else {
+          resize();
+          draw();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
